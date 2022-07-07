@@ -25,10 +25,32 @@ html, body{
 }
 .scroll-block__item{
     padding: 50px;
-    min-height: 500px;
+    min-height: 700px;
 }
 .scroll-block__item--left{
     display: flex;
     justify-content: space-between;
     flex: 1 1 auto;
+    position: relative;
+}
+.scroll-block__content{
+    position: relative;
+    font-size: 35px;
+    letter-spacing: 3px;
+}
+.scroll-block__content::after{
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 150%;
+    height: 5px;
+    border-radius: 2px;
+    background-color: red;
+    transition: all .5s;
+}
+.scroll-block__img{
+    position: relative;
+    transition: all .5s;
 }
