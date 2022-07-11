@@ -22,10 +22,11 @@ html, body{
     justify-content: center;
     align-items: center;
     background-color: rgb(201, 201, 196);
+    cursor: pointer;
 }
 .scroll-block__item{
     padding: 50px;
-    min-height: 500px;
+    min-height: 700px;
 }
 .scroll-block__item--left{
     display: flex;
@@ -47,4 +48,8 @@ html, body{
 .scroll-block__img{
     position: relative;
     transition: all .5s;
+    align-self: flex-end;
+}
+.scroll-up{
+    font-size: 50px;
 }
