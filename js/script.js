@@ -1,4 +1,4 @@
-let elemScrollDown = document.querySelector(".scroll-block__item--down");
+/* let elemScrollDown = document.querySelector(".scroll-block__item--down");
 let elemScrollUp = document.querySelector(".scroll-block__item--up");
 
 let prevScroll = window.screenY;
@@ -50,7 +50,6 @@ function move(elem,  direction) {
     direction == "left" ? (elem.style.width = step + "px") : (elem.style.right = step + "px");
     if( direction == "left") {
     size = parseInt(document.querySelector('.scroll-block__content').style.left);
-    console.log('size', size);
     document.querySelector('.scroll-block__content').style.left = size + stepDirection + "px"
   } 
   prevPos = window.scrollY;
@@ -73,16 +72,47 @@ document.querySelector('.scroll-down').onclick = e =>{
   })
 }
 window.onscroll = ()=>{
-  console.log(window.scrollY)
   let size;
   if(window.scrollY > 990) {
-
     if(document.querySelector('.scroll-up').style.fontSize){
-      console.log(document.querySelector('.scroll-up').style.fontSize);
       size = parseInt(document.querySelector('.scroll-up').style.fontSize);
     } else {
       size = parseInt(getComputedStyle(document.querySelector('.scroll-up')).fontSize);
     }
      if(size > 12) document.querySelector('.scroll-up').style.fontSize =`${size - 1}px`;
   }
+  if(window.scrollY < 990) document.querySelector('.scroll-up').style.fontSize = 40 + "px"
   }
+  document.querySelector('.scroll-down').addEventListener('mouseover', changeColor);
+  document.querySelector('.scroll-down').addEventListener('mouseout', changeColor);
+  document.querySelector('.scroll-up').addEventListener('mouseover', changeColor);
+  document.querySelector('.scroll-up').addEventListener('mouseout', changeColor);
+
+ function changeColor(e) {
+  e.type == "mouseover" ? e.target.style.color = "red" :  e.target.style.color = "black"; 
+ }
+ */
+ //todolist
+
+ let taskList = document.querySelector('.task-box__list');
+ let newTask = document.querySelector('#new-task');
+ let addBtn = document.querySelector('.btn');
+
+
+ newTask.addEventListener('change', (e)=>{
+  let newTask = e.target.value; 
+/*   if(e.target.value){
+    taskList.innerHTML+=`<li>${newTask}</li>`
+  } */
+
+ })
+
+ addBtn.addEventListener('click', addTask);
+ function addTask() {
+  if(newTask.value){
+    taskList.innerHTML+=`<li>${newTask.value}</li>`;
+    newTask.value = "";
+  }
+ }
+
+
