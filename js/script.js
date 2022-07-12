@@ -109,10 +109,17 @@ window.onscroll = ()=>{
 
  addBtn.addEventListener('click', addTask);
  function addTask() {
-  if(newTask.value){
+  if(newTask.value.trim()){
     taskList.innerHTML+=`<li>${newTask.value}</li>`;
     newTask.value = "";
-  }
+  } else console.log(Boolean(newTask.value.trim()))
+  //cделать надпись о пустом поле
+ }
+
+ taskList.onclick = e =>{
+ if(document.querySelectorAll(".task-box__list li").length > 1) e.target.remove();
+ //кастомизировать окно
+ else alert('Один єлемент')
  }
 
 
