@@ -10,16 +10,18 @@
 <body>
     <div class="wrapper">
   <div class="task-box">
-    <div clas="task-box__item">
+    <div class="task-box__item">
         <h2 class="task-box__title">
             Список завдань
         </h2>
         <ul class="task-box__list">
-            <li>Angular</li>
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>SASS/SCSS</li>
+            <li>Bootstrap</li>
         </ul>
-
     </div>
-    <div clas="task-box__item">
+    <div class="task-box__item">
         <h2 class="task-box__title">
             Додати нове завдання
         </h2>
@@ -28,6 +30,16 @@
     <button class="btn">Додати</button>
   
 
+    </div>
+    <div class="task-box__pop-up warning-empty">
+        Попередження!<br>
+        Пусте поле не можна добавити.
+        <span class="task-box__pop-up-close"></span>
+    </div>
+    <div class="task-box__pop-up warning-remove">
+        Попередження!<br>
+        Останній таск зі списку Ви не можете видалити.
+        <span class="task-box__pop-up-close"></span>
     </div>
   </div>
     </div>

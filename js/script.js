@@ -97,6 +97,7 @@ window.onscroll = ()=>{
  let taskList = document.querySelector('.task-box__list');
  let newTask = document.querySelector('#new-task');
  let addBtn = document.querySelector('.btn');
+ let btnClosePopUp =  document.querySelectorAll('.task-box__pop-up-close');
 
 
  newTask.addEventListener('change', (e)=>{
@@ -108,18 +109,26 @@ window.onscroll = ()=>{
  })
 
  addBtn.addEventListener('click', addTask);
- function addTask() {
+ function addTask(e) {
   if(newTask.value.trim()){
     taskList.innerHTML+=`<li>${newTask.value}</li>`;
     newTask.value = "";
-  } else console.log(Boolean(newTask.value.trim()))
-  //cделать надпись о пустом поле
+  } else {
+    document.querySelector('.task-box__pop-up.warning-empty').classList.add('active')
+  }
  }
 
  taskList.onclick = e =>{
  if(document.querySelectorAll(".task-box__list li").length > 1) e.target.remove();
  //кастомизировать окно
- else alert('Один єлемент')
+ else {
+  document.querySelector('.task-box__pop-up.warning-remove').classList.add('active')
+ }
  }
 
 
+for(let i=0; i< btnClosePopUp.length; i++){
+  btnClosePopUp[i].onclick = e => {
+    e.target.parentElement.classList.remove('active');
+  }
+}
