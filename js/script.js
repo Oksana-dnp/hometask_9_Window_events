@@ -1,61 +1,42 @@
-/* let elemScrollDown = document.querySelector(".scroll-block__item--down");
-let elemScrollUp = document.querySelector(".scroll-block__item--up");
 
-let prevScroll = window.screenY;
-let prevPos = window.scrollY;
+let fontDown = document.querySelector('.scroll-down');
+let scrollBtn = document.querySelectorAll('.scroll-block__item span');
+console.log(scrollBtn)
 
-window.addEventListener("scroll", changeSize);
-window.addEventListener("scroll", moveBlocks);
+window.addEventListener('scroll', changeSize);
+
+for(let i=0; i< scrollBtn.length; i++){
+  scrollBtn[i].addEventListener('mouseover', (e) =>{
+   e.target.style.color = "red";
+  })
+  scrollBtn[i].addEventListener('mouseout', (e) =>{
+    e.target.style.color = "#000";
+   })
+}
+//let stepDirection;
 
 
-function changeSize(e) {
-  let newScroll = window.scrollY;
-  if(window.scrollY < 250){
-    if (!elemScrollDown.style.fontSize) {
-      let fontUp = `${parseInt(getComputedStyle(elemScrollDown).fontSize) + 3}px`;
-      newScroll > prevScroll ? (elemScrollDown.style.fontSize = fontUp) : (elemScrollDown.style.fontSize = fontDown);
-    } else {
-      let fontUp = `${parseInt(elemScrollDown.style.fontSize) + 3}`;
-      let fontDown = `${parseInt(elemScrollDown.style.fontSize) - 3}`;
-      if (newScroll > prevScroll && newScroll !== prevScroll && fontUp < 250)
-        elemScrollDown.style.fontSize = `${fontUp}px`;
-      if (newScroll < prevScroll && newScroll !== prevScroll && fontDown > 12)
-        elemScrollDown.style.fontSize = `${fontDown}px`;
-    }
+function changeSize() {
+  let stepSize;
+
+  if (window.scrollY < 500) {
+    stepSize = window.scrollY / 5 + 10;
+    if(stepSize > 16)  document.querySelector(".scroll-down").style.fontSize = `${stepSize}px`;
+   
   }
-  prevScroll = window.scrollY;
+  if (window.scrollY > 500 && window.scrollY < 1000) {
+    let blockLeft = document.querySelector(".scroll-block__item-decor");
+    let blockRight = document.querySelector(".scroll-block__img");
+    move(blockLeft, "left");
+    move(blockRight, "right");
+  }
+  if (window.scrollY > 1000) {
+    stepSize = 50 - Math.ceil(window.scrollY / 100) * 1.3;
+    console.log("window.scrollY", Math.ceil(window.scrollY / 100));
+    document.querySelector(".scroll-up").style.fontSize = `${stepSize}px`;
+    console.log(window.scrollY);
+  }
 }
-
-
-
-function moveBlocks(e){
-  let blockLeft =document.querySelector('.scroll-block__item-decor');
-  let blockRight = document.querySelector('.scroll-block__img');
-  move(blockLeft, "left");
-  move(blockRight, "right");
-}
-
-
-let stepDirection ;
-
-
-function move(elem,  direction) {
-  let newPos = window.scrollY;
-  let step;
-  let size;
-  if(window.scrollY > 500 && window.scrollY < 1000){
-    if( (prevPos - newPos) < 0) stepDirection = 5;
-    else if((prevPos- newPos) > 0 ) stepDirection = -5;
-    direction == "left" ?  (step = parseInt(elem.style.width) + stepDirection) : (step = parseInt(elem.style.right) + stepDirection );
-    direction == "left" ? (elem.style.width = step + "px") : (elem.style.right = step + "px");
-    if( direction == "left") {
-    size = parseInt(document.querySelector('.scroll-block__content').style.left);
-    document.querySelector('.scroll-block__content').style.left = size + stepDirection + "px"
-  } 
-  prevPos = window.scrollY;
-}
-}
-
 document.querySelector('.scroll-up').onclick = function(e){
   window.scrollTo(0,0);
 }
@@ -71,64 +52,17 @@ document.querySelector('.scroll-down').onclick = e =>{
     behavior: "smooth",
   })
 }
-window.onscroll = ()=>{
-  let size;
-  if(window.scrollY > 990) {
-    if(document.querySelector('.scroll-up').style.fontSize){
-      size = parseInt(document.querySelector('.scroll-up').style.fontSize);
-    } else {
-      size = parseInt(getComputedStyle(document.querySelector('.scroll-up')).fontSize);
-    }
-     if(size > 12) document.querySelector('.scroll-up').style.fontSize =`${size - 1}px`;
-  }
-  if(window.scrollY < 990) document.querySelector('.scroll-up').style.fontSize = 40 + "px"
-  }
-  document.querySelector('.scroll-down').addEventListener('mouseover', changeColor);
-  document.querySelector('.scroll-down').addEventListener('mouseout', changeColor);
-  document.querySelector('.scroll-up').addEventListener('mouseover', changeColor);
-  document.querySelector('.scroll-up').addEventListener('mouseout', changeColor);
-
- function changeColor(e) {
-  e.type == "mouseover" ? e.target.style.color = "red" :  e.target.style.color = "black"; 
- }
- */
- //todolist
-
- let taskList = document.querySelector('.task-box__list');
- let newTask = document.querySelector('#new-task');
- let addBtn = document.querySelector('.btn');
- let btnClosePopUp =  document.querySelectorAll('.task-box__pop-up-close');
-
-
- newTask.addEventListener('change', (e)=>{
-  let newTask = e.target.value; 
-/*   if(e.target.value){
-    taskList.innerHTML+=`<li>${newTask}</li>`
-  } */
-
- })
-
- addBtn.addEventListener('click', addTask);
- function addTask(e) {
-  if(newTask.value.trim()){
-    taskList.innerHTML+=`<li>${newTask.value}</li>`;
-    newTask.value = "";
-  } else {
-    document.querySelector('.task-box__pop-up.warning-empty').classList.add('active')
-  }
- }
-
- taskList.onclick = e =>{
- if(document.querySelectorAll(".task-box__list li").length > 1) e.target.remove();
- //кастомизировать окно
- else {
-  document.querySelector('.task-box__pop-up.warning-remove').classList.add('active')
- }
- }
-
-
-for(let i=0; i< btnClosePopUp.length; i++){
-  btnClosePopUp[i].onclick = e => {
-    e.target.parentElement.classList.remove('active');
-  }
+//move block
+function moveBlocks(e){
+  let blockLeft =document.querySelector('.scroll-block__item-decor');
+  let blockRight = document.querySelector('.scroll-block__img');
+  move(blockLeft, "left");
+  move(blockRight, "right");
+}
+function move(elem,  direction) {
+  let newPos = window.scrollY/5;
+  direction == "left"? elem.style.left = `${newPos}px` : elem.style.right = `${newPos}px`
+  if(direction == "left") {
+    document.querySelector('.scroll-block__item-decor').style.width= `${305+newPos}px`
+  } 
 }
